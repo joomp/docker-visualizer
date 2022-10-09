@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      dockerfile: Dockerfile
+      context: ./backend
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./backend:/app
+    pid: host
+    privileged: true
+
+  frontend:
+    build:
+      dockerfile: Dockerfile-dev
+      context: ./frontend
+    volumes:
+      - ./frontend:/app
+      - '/app/node_modules'
+    environment:
+      - VUE_APP_BACKEND_URL=http://localhost:5000
+    ports:
+      - "8080:8080"

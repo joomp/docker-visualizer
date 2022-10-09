@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      dockerfile: Dockerfile
+      context: ./backend
+    environment:
+      - PRODUCTION=1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    pid: host
+    privileged: true
+
+  frontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+      args:
+        - VUE_APP_BACKEND_URL=/api
+    volumes:
+      - '/app/node_modules'
+
+  nginx:
+    image: nginx:1.20
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    depends_on:
+      - backend
+      - frontend
