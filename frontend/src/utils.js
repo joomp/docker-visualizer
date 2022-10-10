@@ -43,3 +43,15 @@ export const shortId = (str) => {
   const len = 13;
   return str.slice(0, len) + '...';
 };
+
+/**
+ * Returns the string in short name format.
+ *
+ * @param {string} str - target string
+ * @returns {string} short name
+ */
+export const shortName = (str) => {
+  const len = 20;
+  if (str.length <= len) return str;
+  return str.slice(0, len) + '...';
+};

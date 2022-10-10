@@ -3,7 +3,7 @@ import images from './modules/images';
 import image from './modules/image';
 import containers from './modules/containers';
 import container from './modules/container';
-import { shortId } from '@/utils';
+import { shortId, shortName } from '@/utils';
 
 const getters = {
   /**
@@ -40,14 +40,17 @@ const getters = {
 
     containers.forEach((cont) => {
       nodes[cont.id] = {
-        name: `${cont.name}\n${shortId(cont.id)}`,
+        name: `${shortName(cont.name)}\n${shortId(cont.id)}`,
         type: cont.status === 'running' ? 'CONTAINER_RUNNING' : 'CONTAINER',
       };
     });
 
     images.forEach((img) => {
       nodes[img.id] = {
-        name: `${img.tags[0] ? img.tags[0] + '\n' : ''}${shortId(img.id)}`,
+        name: `
+          ${img.tags[0] ? shortName(img.tags[0]) + '\n' : ''}
+          ${shortId(img.id)}
+        `,
         type: 'IMAGE',
       };
       img.layers.forEach((layer) => {
