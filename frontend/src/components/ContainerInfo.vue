@@ -120,7 +120,8 @@
             <table class="table table-sm table-borderless">
               <thead class="table-light">
                 <tr>
-                  <th colspan="3">Port</th>
+                  <th>Port</th>
+                  <th colspan="2"></th>
                 </tr>
               </thead>
               <tbody>
