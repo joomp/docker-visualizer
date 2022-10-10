@@ -81,10 +81,12 @@ const getters = {
     const edges = {};
 
     containers.forEach((cont) => {
-      edges[cont.id + cont.image_id] = {
-        source: cont.id,
-        target: cont.image_id,
-      };
+      if (cont.image_id) {
+        edges[cont.id + cont.image_id] = {
+          source: cont.id,
+          target: cont.image_id,
+        };
+      }
     });
 
     images.forEach((img) => {

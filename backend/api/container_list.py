@@ -4,13 +4,14 @@ Defines ContainerList resource.
 """
 from common.docker_client import client
 from flasgger import SwaggerView, Schema, fields
+import docker.errors
 
 class ContainerListItemSchema(Schema):
     id = fields.String(required=True)
     name = fields.String(required=True)
     status = fields.String(required=True)
-    image_id = fields.String(attribute='image.id', required=True)
-    image_tags = fields.List(fields.String, attribute='image.tags', required=True)
+    image_id = fields.String(required=True, dump_default='')
+    image_tags = fields.List(fields.String, required=True, dump_default=[])
 
 class ContainerList(SwaggerView):
     responses = {
@@ -36,5 +37,13 @@ class ContainerList(SwaggerView):
         ---
         """
         containers = client.containers.list(all=True)
+        for container in containers:
+            try:
+                image = container.image
+                container.image_id = image.id
+                container.image_tags = container.image.tags
+            except docker.errors.NotFound:
+                # Image missing
+                pass
         return ContainerListItemSchema(many=True).dump(containers)
     

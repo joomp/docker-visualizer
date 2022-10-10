@@ -28,7 +28,6 @@ class ContainerSchema(Schema):
     id = fields.String(required=True)
     name = fields.String(required=True)
     status = fields.String(required=True)
-    image_id = fields.String(attribute='image.id', required=True)
     
     created = fields.Integer(attribute='df.Created', required=True, dump_default=0)
     graph_driver = fields.String(attribute='attrs.GraphDriver.Name', required=True, dump_default='')
