@@ -52,7 +52,7 @@
     class="collapse-toggle"
   >
     <h4 class="my-3">
-      Images({{ images.length }})
+      Images ({{ images.length }})
       <i class="bi bi-chevron-down float-end"></i>
     </h4>
   </a>
