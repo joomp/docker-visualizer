@@ -120,6 +120,8 @@ body {
   order: 2;
   height: 100vh;
   width: 100%;
+  padding-left: 0;
+  padding-right: 1px;
   @media (max-width: 728px) {
     height: 80vh;
   }
