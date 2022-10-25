@@ -12,7 +12,6 @@ api.init_app(app)
 swagger.init_app(app)
 
 if __name__ == '__main__':
-    import os
     if os.getenv('PRODUCTION'):
         from waitress import serve
         from paste.translogger import TransLogger
